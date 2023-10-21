@@ -24,3 +24,19 @@
 iframe {
   pointer-events: none;
 }
+
+/*.carousel .control-arrow, .carousel.carousel-slider .control-arrow {*/
+/*  height: 720px;*/
+/*  z-index: 20;*/
+/*}*/
+
+/*.control-arrow::before {*/
+/*  position: absolute;*/
+/*  right: 20px;*/
+/*  width: 32px;*/
+/*  height: 32px;*/
+/*  z-index: 20;*/
+/*  background-color: #ffffff;*/
+/*  border: 2px solid #000000;*/
+/*  border-radius: 50%;*/
+/*}*/
