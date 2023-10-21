@@ -44,7 +44,7 @@ const ThePhoneFormBanner = () => {
   };
 
   return (
-    <div className="absolute px-[50px] w-[380px] h-full bg-[#86d3f4] text-center font-['Roboto'] font-normal z-20">
+    <>
       <h2 className="mt-[50px] text-[1.625rem]">
         Введите ваш номер мобильного телефона
       </h2>
@@ -133,7 +133,7 @@ const ThePhoneFormBanner = () => {
       >
         ПОДТВЕРДИТЬ НОМЕР
       </button>
-    </div>
+    </>
   );
 };
 

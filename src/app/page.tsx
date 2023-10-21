@@ -9,6 +9,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function Home() {
   const [currentItem, setCurrentItem] = useState(0);
+  const [isApplicationAccepted, setIsApplicationAccepted] = useState(false);
 
   const carouselRef = useRef(null);
 
@@ -103,9 +104,26 @@ export default function Home() {
             className="absolute left-[0] w-full h-full z-10"
           />
 
-          <ThePhoneFormBanner />
+          <div className="absolute px-[50px] w-[380px] h-full bg-[#86d3f4] text-center font-['Roboto'] font-normal z-20">
+            {isApplicationAccepted ? (
+              <ThePhoneFormBanner />
+            ) : (
+              <>
+                <h2 className="mt-[calc(50%+140px)] mx-[20%] w-[60%] text-[2rem] font-bold leading-[37px]">
+                  ЗАЯВКА ПРИНЯТА
+                </h2>
 
-          <button className="absolute flex justify-center items-center top-[20px] right-[20px] w-[85px] h-[50px] bg-[#ffffff] border-[#000000] border-2 z-20">
+                <p className="mt-[15px]">
+                  Держите телефон под рукой. Скоро с Вами свяжется наш менеджер.
+                </p>
+              </>
+            )}
+          </div>
+
+          <button
+            onClick={() => setCurrentItem(0)}
+            className="absolute flex justify-center items-center top-[20px] right-[20px] w-[85px] h-[50px] bg-[#ffffff] border-[#000000] border-2 z-20"
+          >
             <img
               src="/static/XMarkIcon.svg"
               alt="Закрыть баннер с вводом телефона"
@@ -124,8 +142,6 @@ export default function Home() {
             />
           </div>
         </div>
-
-        <div></div>
       </Carousel>
     </main>
   );
