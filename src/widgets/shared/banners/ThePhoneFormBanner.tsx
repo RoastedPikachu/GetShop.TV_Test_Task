@@ -55,7 +55,7 @@ const ThePhoneFormBanner = () => {
         alwaysShowMask={true}
         onChange={(event) => setPhoneNumber(event.target.value)}
         value={phoneNumber}
-        className={`w-[100%] h-[40px] bg-transparent border-none ${
+        className={`mt-[10px] w-[100%] h-[40px] bg-transparent border-none ${
           isPhoneInvalid && isResponseReceived ? "text-[#ea0000]" : ""
         } text-[2rem] text-center outline-none`}
       />

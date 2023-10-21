@@ -12,9 +12,11 @@ export default function Home() {
 
   const carouselRef = useRef(null);
 
+  let timeoutId: number;
+
   let youtubeVideo: any;
 
-  function handleVisibilityChange() {
+  const handleVisibilityChange = () => {
     if (document.visibilityState === "hidden") {
       youtubeVideo?.contentWindow?.postMessage(
         '{"event":"command","func":"pauseVideo","args":""}',
@@ -26,10 +28,21 @@ export default function Home() {
         "*",
       );
     }
-  }
+  };
+
+  const handleUserActivity = () => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      setCurrentItem(0);
+    }, 10000);
+  };
 
   useEffect(() => {
     youtubeVideo = document.getElementById("YoutubeVideo");
+
+    window.addEventListener("mousemove", handleUserActivity);
+    window.addEventListener("keydown", handleUserActivity);
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
   }, []);
@@ -48,7 +61,7 @@ export default function Home() {
             <button
               type="button"
               onClick={onClickHandler}
-              className="custom-arrow custom-arrow-prev"
+              className="absolute flex justify-center items-center left-[25px] top-[10px] w-[70px] h-[40px] bg-[#ffffff] hover:bg-[#000000] border-[#000000] border-2 rounded-[25px] text-[#000000] hover:text-[#ffffff] text-[1.875rem] duration-[400ms] ease-in-out z-20"
             >
               ←
             </button>
@@ -59,7 +72,7 @@ export default function Home() {
             <button
               type="button"
               onClick={onClickHandler}
-              className="custom-arrow custom-arrow-next"
+              className="absolute flex justify-center items-center right-[25px] top-[10px] w-[70px] h-[40px] bg-[#ffffff] hover:bg-[#000000] border-[#000000] border-2 rounded-[25px] text-[#000000] hover:text-[#ffffff] text-[1.875rem] duration-[400ms] ease-in-out z-20"
             >
               →
             </button>
@@ -69,7 +82,7 @@ export default function Home() {
       >
         {/*Отсюда брал параметры для проигрывателя: https://developers.google.com/youtube/player_parameters?hl=ru и https://developers.google.com/youtube/player_parameters?hl=ru#enablejsapi*/}
 
-        <div className="relative w-full h-full">
+        <div className="relative w-[1280px] h-[720px]">
           <iframe
             width="1280"
             height="720"
@@ -83,11 +96,11 @@ export default function Home() {
           <TheQRBanner />
         </div>
 
-        <div className="relative w-full h-full">
+        <div className="relative w-[1280px] h-[720px]">
           <img
             src="/static/PhoneBannerBackgroundImage.png"
             alt=""
-            className="absolute w-full h-full z-10"
+            className="absolute left-[0] w-full h-full z-10"
           />
 
           <ThePhoneFormBanner />
@@ -111,6 +124,8 @@ export default function Home() {
             />
           </div>
         </div>
+
+        <div></div>
       </Carousel>
     </main>
   );
