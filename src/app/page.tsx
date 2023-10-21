@@ -13,7 +13,7 @@ export default function Home() {
 
   const carouselRef = useRef(null);
 
-  let timeoutId: number;
+  let timeoutId: ReturnType<NodeJS.Timeout>;
 
   let youtubeVideo: any;
 
@@ -37,6 +37,10 @@ export default function Home() {
     timeoutId = setTimeout(() => {
       setCurrentItem(0);
     }, 10000);
+  };
+
+  const acceptApplication = () => {
+    setIsApplicationAccepted(true);
   };
 
   useEffect(() => {
@@ -105,8 +109,8 @@ export default function Home() {
           />
 
           <div className="absolute px-[50px] w-[380px] h-full bg-[#86d3f4] text-center font-['Roboto'] font-normal z-20">
-            {isApplicationAccepted ? (
-              <ThePhoneFormBanner />
+            {!isApplicationAccepted ? (
+              <ThePhoneFormBanner callback={acceptApplication} />
             ) : (
               <>
                 <h2 className="mt-[calc(50%+140px)] mx-[20%] w-[60%] text-[2rem] font-bold leading-[37px]">

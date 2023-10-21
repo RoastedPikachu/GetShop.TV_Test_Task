@@ -5,7 +5,13 @@ import axios from "axios";
 
 import NumPadButton from "@/widgets/shared/buttons/NumPadButton";
 
-const ThePhoneFormBanner = () => {
+interface ThePhoneFormBunnerProps {
+  callback: () => void;
+}
+
+const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
+  callback,
+}) => {
   let [phoneNumber, setPhoneNumber] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPhoneInvalid, setIsPhoneInvalid] = useState(false);
@@ -32,6 +38,12 @@ const ThePhoneFormBanner = () => {
         });
     }
   }, [phoneNumber]);
+
+  const handleClick = () => {
+    if (isConfirmed && !isPhoneInvalid && isResponseReceived) {
+      callback();
+    }
+  };
 
   const addNumberToPhoneNumber = (number: string) => {
     setPhoneNumber(phoneNumber + number);
@@ -125,6 +137,7 @@ const ThePhoneFormBanner = () => {
       )}
 
       <button
+        onClick={() => handleClick()}
         className={`mt-[20px] w-full h-[50px] border-[1px] ${
           isConfirmed && !isPhoneInvalid && isResponseReceived
             ? "bg-[#000000] border-[#000000] text-[#ffffff]"
