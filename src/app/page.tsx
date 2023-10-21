@@ -39,6 +39,10 @@ export default function Home() {
     }, 10000);
   };
 
+  const getNextSliderElement = () => {
+    setCurrentItem(1);
+  };
+
   const acceptApplication = () => {
     setIsApplicationAccepted(true);
   };
@@ -98,7 +102,7 @@ export default function Home() {
             id="YoutubeVideo"
           ></iframe>
 
-          <TheQRBanner />
+          <TheQRBanner callback={getNextSliderElement} />
         </div>
 
         <div className="relative w-[1280px] h-[720px]">

@@ -15,34 +15,26 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
   let [phoneNumber, setPhoneNumber] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPhoneInvalid, setIsPhoneInvalid] = useState(false);
-  const [isResponseReceived, setIsResponseReceived] = useState(false);
 
-  useEffect(() => {
-    let comparedVariable: string = phoneNumber.replace(/[\(\)_\-\+]/g, "");
+  const checkPhoneNumberValid = () => {
+    phoneNumber = phoneNumber.replace(/[\(\)_\-\+]/g, "");
 
-    if (comparedVariable[0] === "7") {
-      comparedVariable = comparedVariable.slice(1);
+    if (phoneNumber[0] === "7") {
+      phoneNumber = phoneNumber.slice(1);
     }
 
-    if (comparedVariable.length === 10) {
-      phoneNumber = comparedVariable;
-
-      axios
-        .post(
-          `http://apilayer.net/api/validate?access_key=45f87171678e25604922fe59302e5dfd&number=${phoneNumber}&country_code=RU`,
-        )
-        .then((res: any) => {
-          console.log(res);
+    axios
+      .post(
+        `http://apilayer.net/api/validate?access_key=45f87171678e25604922fe59302e5dfd&number=${phoneNumber}&country_code=RU`,
+      )
+      .then((res: any) => {
+        if (!res.data.valid) {
           setIsPhoneInvalid(!res.data.valid);
-          setIsResponseReceived(true);
-        });
-    }
-  }, [phoneNumber]);
-
-  const handleClick = () => {
-    if (isConfirmed && !isPhoneInvalid && isResponseReceived) {
-      callback();
-    }
+          setTimeout(() => clearPhoneNumber(), 5000);
+        } else {
+          callback();
+        }
+      });
   };
 
   const addNumberToPhoneNumber = (number: string) => {
@@ -52,7 +44,6 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
   const clearPhoneNumber = () => {
     setPhoneNumber("");
     setIsPhoneInvalid(false);
-    setIsResponseReceived(false);
   };
 
   return (
@@ -68,7 +59,7 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
         onChange={(event) => setPhoneNumber(event.target.value)}
         value={phoneNumber}
         className={`mt-[10px] w-[100%] h-[40px] bg-transparent border-none ${
-          isPhoneInvalid && isResponseReceived ? "text-[#ea0000]" : ""
+          isPhoneInvalid ? "text-[#ea0000]" : ""
         } text-[2rem] text-center outline-none`}
       />
 
@@ -105,9 +96,7 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
         <NumPadButton number={0} callback={addNumberToPhoneNumber} />
       </div>
 
-      {(!isPhoneInvalid && isResponseReceived) ||
-      (phoneNumber.replace(/[\(\)_\-\+]/g, "").length < 11 &&
-        !isResponseReceived) ? (
+      {!isPhoneInvalid ? (
         <div className="flex justify-between items-center mt-[30px] w-full h-[50px]">
           <input
             type="checkbox"
@@ -137,9 +126,9 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
       )}
 
       <button
-        onClick={() => handleClick()}
+        onClick={() => checkPhoneNumberValid()}
         className={`mt-[20px] w-full h-[50px] border-[1px] ${
-          isConfirmed && !isPhoneInvalid && isResponseReceived
+          isConfirmed && phoneNumber.replace(/[\(\)_\-\+]/g, "").length > 10
             ? "bg-[#000000] border-[#000000] text-[#ffffff]"
             : "border-[#4e4e4e] text-[#4e4e4e]"
         } text-[1rem] font-medium`}

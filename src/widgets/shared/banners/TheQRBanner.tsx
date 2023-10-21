@@ -1,8 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-const TheQRBanner = () => {
+interface TheQRBannerProps {
+  callback: () => void;
+}
+
+const TheQRBanner: React.FC<TheQRBannerProps> = ({ callback }) => {
   const [isBannerShowed, setIsBannerShowed] = useState(false);
+
+  const handleClick = () => {
+    callback();
+  };
 
   useEffect(() => {
     setTimeout(() => setIsBannerShowed(true), 5000);
@@ -28,7 +36,10 @@ const TheQRBanner = () => {
         Сканируйте QR-код или нажмите ОК
       </p>
 
-      <button className="mt-[15px] mx-[calc(50%-75px)] w-[150px] h-[50px] bg-[#000000] text-[#86d3f4] text-[]">
+      <button
+        onClick={() => handleClick()}
+        className="mt-[15px] mx-[calc(50%-75px)] w-[150px] h-[50px] bg-[#000000] hover:bg-[#86d3f4] focus:bg-[#86d3f4] border-[#000000] border-2 text-[#86d3f4] hover:text-[#000000] focus:text-[#000000] text-[1rem] duration-[400ms] ease-in-out"
+      >
         ОК
       </button>
     </div>
