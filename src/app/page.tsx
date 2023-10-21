@@ -18,12 +18,13 @@ export default function Home() {
   let youtubeVideo: any;
 
   const handleVisibilityChange = () => {
-    if (document.visibilityState === "hidden") {
+    if (document.visibilityState === "hidden" || currentItem !== 0) {
+      console.log("1");
       youtubeVideo?.contentWindow?.postMessage(
         '{"event":"command","func":"pauseVideo","args":""}',
         "*",
       );
-    } else if (document.visibilityState === "visible") {
+    } else if (document.visibilityState === "visible" || currentItem === 0) {
       youtubeVideo?.contentWindow?.postMessage(
         '{"event":"command","func":"playVideo","args":""}',
         "*",
@@ -36,11 +37,13 @@ export default function Home() {
 
     timeoutId = setTimeout(() => {
       setCurrentItem(0);
+      handleVisibilityChange();
     }, 10000);
   };
 
   const getNextSliderElement = () => {
     setCurrentItem(1);
+    handleVisibilityChange();
   };
 
   const acceptApplication = () => {
@@ -65,22 +68,28 @@ export default function Home() {
         selectedItem={currentItem}
         ref={carouselRef}
         onChange={(index) => setCurrentItem(index)}
-        renderArrowPrev={(onClickHandler, hasPrev, label) =>
+        renderArrowPrev={(handleClick, hasPrev) =>
           hasPrev && (
             <button
               type="button"
-              onClick={onClickHandler}
+              onClick={() => {
+                setCurrentItem(0);
+                handleVisibilityChange();
+              }}
               className="absolute flex justify-center items-center left-[25px] top-[10px] w-[70px] h-[40px] bg-[#ffffff] hover:bg-[#000000] border-[#000000] border-2 rounded-[25px] text-[#000000] hover:text-[#ffffff] text-[1.875rem] duration-[400ms] ease-in-out z-20"
             >
               ←
             </button>
           )
         }
-        renderArrowNext={(onClickHandler, hasNext, label) =>
+        renderArrowNext={(handleClick, hasNext) =>
           hasNext && (
             <button
               type="button"
-              onClick={onClickHandler}
+              onClick={() => {
+                getNextSliderElement();
+                handleVisibilityChange();
+              }}
               className="absolute flex justify-center items-center right-[25px] top-[10px] w-[70px] h-[40px] bg-[#ffffff] hover:bg-[#000000] border-[#000000] border-2 rounded-[25px] text-[#000000] hover:text-[#ffffff] text-[1.875rem] duration-[400ms] ease-in-out z-20"
             >
               →
