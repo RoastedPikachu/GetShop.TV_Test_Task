@@ -41,7 +41,7 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
   };
 
   const addNumberToPhoneNumber = (number: string) => {
-    setPhoneNumber(phoneNumber + number);
+    setPhoneNumber(phoneNumber.replace(/[\(\)_\-\+]/g, "") + number);
   };
 
   const clearPhoneNumber = () => {
