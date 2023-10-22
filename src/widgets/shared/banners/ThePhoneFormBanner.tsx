@@ -25,7 +25,10 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
 
     axios
       .post(
-        `http://apilayer.net/api/validate?access_key=45f87171678e25604922fe59302e5dfd&number=${phoneNumber}&country_code=RU`,
+        `http://apilayer.net/api/validate?access_key=45f87171678e25604922fe59302e5dfd&number=${phoneNumber.slice(
+          0,
+          11,
+        )}&country_code=RU`,
       )
       .then((res: any) => {
         if (!res.data.valid) {
@@ -107,6 +110,8 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
 
           <label
             htmlFor="FAQApproveInput"
+            tabindex="0"
+            onKeyDown={() => setIsConfirmed(!isConfirmed)}
             className="flex justify-center items-center w-[40px] h-[40px] border-[#000000] border-2 cursor-pointer"
           >
             {isConfirmed && (
@@ -128,10 +133,10 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
       <button
         onClick={() => checkPhoneNumberValid()}
         className={`mt-[20px] w-full h-[50px] border-[1px] ${
-          isConfirmed && phoneNumber.replace(/[\(\)_\-\+]/g, "").length > 10
+          isConfirmed && phoneNumber.replace(/[\(\)_\-\+]/g, "").length >= 10
             ? "bg-[#000000] border-[#000000] text-[#ffffff]"
             : "border-[#4e4e4e] text-[#4e4e4e]"
-        } text-[1rem] font-medium`}
+        } text-[1rem] font-medium duration-[400ms] ease-in-out`}
       >
         ПОДТВЕРДИТЬ НОМЕР
       </button>

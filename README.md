@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Это репозиторий тестового задания для компании GetShopTV
 
-## Getting Started
+## Технологический стек, использованный в разработке
+### Вёрстка:
+- HTML
+- CSS
+- TailwindCSS
+### Frontend:
+- TypeScript
+- React 
+- NextJS
+- react-responsive-carousel - карусель для экранов микросайта
+- axios - для запросов на сервер
+- react-input-mask - для маски инпута
+### Дополнительные сервисы:
+- https://numverify.com/documentation - для валидации номеров
 
-First, run the development server:
+## Пояснение по выполнению
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+В требованиях необходимо было реализовать 3 экрана микросайта. Я **реализовал все 3 экрана** но *3 экран сделал не отдельным, а с функцией замены*. При нажатии на кнопку "Подтвердить номер" и пройденной валидации номера форма 2 экрана заменяется нв 3 экран.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Вёрстка экрана **статичная** для разрешения **1280x720px**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Навигация по экранам **реализована с помощью кнопок** "ОК" на первом экране и кнопки "Закрыть" на 2 экране.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Навигация по кнопкам возможна при нажатии на клавишу **"Tab"** или стрелок **клавиатуры** (_левая и правая стрелка_).
 
-## Learn More
+*Если кнопка находится в фокусе*, то для действия данной кнопки можно **кликнуть** на неё или же нажать клавишу **"Enter"**.
 
-To learn more about Next.js, take a look at the following resources:
+Для ввода номера на 2 экране микросайта **можно использовать как кнопки виртуальной клавиатуры сайта, так и клавиши клавиатуры**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Клавиша **"Backspace"** работает для удаление последней набранной цифры **только при фокусе инпута**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Также были выполнены **все 3 бонусные таски**:
+- **Видео ставится на паузу** при переходе на другую вкладку браузера или экран микросайта и продолжает воспроизводиться при возвращении на 1 экран
+- **Валидация номера происходит** при нажатии на кнопку "Подтвердить номер", но есть ограничение на 1 тыс. запросов
+- Также на всём сайте **есть таймер неактивности** (отсутствие движения мышью или нажатия на клавиатуру). Через 10 секунд неактивности он возвращает на 1 экран микросайта. Но нет UI для таймера, поэтому он может быть интуитивно не понятен
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

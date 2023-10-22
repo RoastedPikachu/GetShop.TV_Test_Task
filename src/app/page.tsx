@@ -20,7 +20,6 @@ export default function Home() {
 
   const handleVisibilityChange = () => {
     if (document.visibilityState === "hidden" || currentItem !== 0) {
-      console.log("1");
       youtubeVideo?.contentWindow?.postMessage(
         '{"event":"command","func":"pauseVideo","args":""}',
         "*",
