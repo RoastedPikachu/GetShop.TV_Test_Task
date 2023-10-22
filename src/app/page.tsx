@@ -43,7 +43,7 @@ export default function Home() {
     }, 10000);
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     let currentFocusedIndex = Array.from(buttons).findIndex(
       (button) => button === document.activeElement,
     );
