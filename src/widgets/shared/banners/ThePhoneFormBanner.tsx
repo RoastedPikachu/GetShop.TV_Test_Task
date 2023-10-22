@@ -112,7 +112,7 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
 
             <label
               htmlFor="FAQApproveInput"
-              tabIndex="0"
+              tabIndex={0}
               onKeyDown={() => setIsConfirmed(!isConfirmed)}
               className="flex justify-center items-center w-[40px] h-[40px] border-[#000000] border-2 cursor-pointer"
             >
