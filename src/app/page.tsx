@@ -10,10 +10,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 export default function Home() {
   const [currentItem, setCurrentItem] = useState(0);
   const [isApplicationAccepted, setIsApplicationAccepted] = useState(false);
+  const [isButtonHover, setIsButtonHover] = useState(false);
 
   const carouselRef = useRef(null);
 
-  let timeoutId: ReturnType<NodeJS.Timeout>;
+  let timeoutId: any;
 
   let youtubeVideo: any;
 
@@ -65,37 +66,9 @@ export default function Home() {
         showStatus={false}
         showIndicators={false}
         showThumbs={false}
+        showArrows={false}
         selectedItem={currentItem}
         ref={carouselRef}
-        onChange={(index) => setCurrentItem(index)}
-        renderArrowPrev={(handleClick, hasPrev) =>
-          hasPrev && (
-            <button
-              type="button"
-              onClick={() => {
-                setCurrentItem(0);
-                handleVisibilityChange();
-              }}
-              className="absolute flex justify-center items-center left-[25px] top-[10px] w-[70px] h-[40px] bg-[#ffffff] hover:bg-[#000000] border-[#000000] border-2 rounded-[25px] text-[#000000] hover:text-[#ffffff] text-[1.875rem] duration-[400ms] ease-in-out z-20"
-            >
-              ←
-            </button>
-          )
-        }
-        renderArrowNext={(handleClick, hasNext) =>
-          hasNext && (
-            <button
-              type="button"
-              onClick={() => {
-                getNextSliderElement();
-                handleVisibilityChange();
-              }}
-              className="absolute flex justify-center items-center right-[25px] top-[10px] w-[70px] h-[40px] bg-[#ffffff] hover:bg-[#000000] border-[#000000] border-2 rounded-[25px] text-[#000000] hover:text-[#ffffff] text-[1.875rem] duration-[400ms] ease-in-out z-20"
-            >
-              →
-            </button>
-          )
-        }
         className="relative w-full h-full"
       >
         {/*Отсюда брал параметры для проигрывателя: https://developers.google.com/youtube/player_parameters?hl=ru и https://developers.google.com/youtube/player_parameters?hl=ru#enablejsapi*/}
@@ -116,7 +89,7 @@ export default function Home() {
 
         <div className="relative w-[1280px] h-[720px]">
           <img
-            src="/static/PhoneBannerBackgroundImage.png"
+            src="/static/background/PhoneBannerBackgroundImage.png"
             alt=""
             className="absolute left-[0] w-full h-full z-10"
           />
@@ -138,11 +111,17 @@ export default function Home() {
           </div>
 
           <button
+            onMouseEnter={() => setIsButtonHover(true)}
+            onMouseLeave={() => setIsButtonHover(false)}
+            onFocus={() => setIsButtonHover(true)}
+            onBlur={() => setIsButtonHover(false)}
             onClick={() => setCurrentItem(0)}
-            className="absolute flex justify-center items-center top-[20px] right-[20px] w-[85px] h-[50px] bg-[#ffffff] border-[#000000] border-2 z-20"
+            className="absolute flex justify-center items-center top-[20px] right-[20px] w-[85px] h-[50px] bg-[#ffffff] hover:bg-[#000000] focus:bg-[#000000] border-[#000000] border-2 duration-[400ms] ease-in-out z-20"
           >
             <img
-              src="/static/XMarkIcon.svg"
+              src={`/static/icon/${
+                isButtonHover ? "WhiteXMarkIcon.svg" : "XMarkIcon.svg"
+              }`}
               alt="Закрыть баннер с вводом телефона"
             />
           </button>

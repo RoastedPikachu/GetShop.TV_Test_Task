@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import InputMask from "react-input-mask";
 import axios from "axios";
 
@@ -111,7 +111,7 @@ const ThePhoneFormBanner: React.FC<ThePhoneFormBunnerProps> = ({
           >
             {isConfirmed && (
               <img
-                src="/static/CheckedIcon.svg"
+                src="/static/icon/CheckedIcon.svg"
                 alt="Принять условия согласия на обработку персональных данных"
               />
             )}
