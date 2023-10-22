@@ -12,6 +12,7 @@ const NumPadButton: React.FC<NumPadButtonProps> = ({ number, callback }) => {
 
   return (
     <button
+      type="button"
       onClick={() => handleClick()}
       className="w-[90px] h-[50px] hover:bg-[#000000] focus:bg-[#000000] border-[#000000] border-2 hover:text-[#ffffff] focus:text-[#ffffff] font-medium duration-[400ms] ease-in-out"
     >

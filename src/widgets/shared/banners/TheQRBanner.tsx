@@ -37,7 +37,7 @@ const TheQRBanner: React.FC<TheQRBannerProps> = ({ callback }) => {
       </p>
 
       <button
-        tabindex="1"
+        tabIndex="1"
         onClick={() => handleClick()}
         className="mt-[15px] mx-[calc(50%-75px)] w-[150px] h-[50px] bg-[#000000] hover:bg-[#86d3f4] focus:bg-[#86d3f4] border-[#000000] border-2 text-[#86d3f4] hover:text-[#000000] focus:text-[#000000] text-[1rem] duration-[400ms] ease-in-out"
       >

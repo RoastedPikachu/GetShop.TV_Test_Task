@@ -14,6 +14,8 @@ export default function Home() {
 
   const carouselRef = useRef(null);
 
+  let buttons: any;
+
   let timeoutId: any;
 
   let youtubeVideo: any;
@@ -41,6 +43,30 @@ export default function Home() {
     }, 10000);
   };
 
+  const handleKeyDown = (event) => {
+    let currentFocusedIndex = Array.from(buttons).findIndex(
+      (button) => button === document.activeElement,
+    );
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+
+      currentFocusedIndex =
+        currentFocusedIndex < 1 ? 0 : currentFocusedIndex - 1;
+      buttons[currentFocusedIndex].focus();
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+
+      currentFocusedIndex =
+        currentFocusedIndex === buttons.length - 1
+          ? buttons.length - 1
+          : currentFocusedIndex + 1;
+      buttons[currentFocusedIndex].focus();
+    }
+  };
+
   const getNextSliderElement = () => {
     setCurrentItem(1);
     handleVisibilityChange();
@@ -51,10 +77,13 @@ export default function Home() {
   };
 
   useEffect(() => {
+    buttons = document.querySelectorAll("button");
     youtubeVideo = document.getElementById("YoutubeVideo");
 
     window.addEventListener("mousemove", handleUserActivity);
     window.addEventListener("keydown", handleUserActivity);
+
+    window.addEventListener("keydown", handleKeyDown);
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
   }, []);
